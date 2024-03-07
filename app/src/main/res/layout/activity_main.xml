@@ -113,4 +113,14 @@
             android:text="Azul" />
     </RadioGroup>
 
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:entries="@array/gameTypes"
+        app:layout_constraintBottom_toTopOf="@+id/buttonVerde"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"  />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
