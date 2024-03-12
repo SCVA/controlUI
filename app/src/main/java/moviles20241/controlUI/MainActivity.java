@@ -1,11 +1,15 @@
 package moviles20241.controlUI;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -13,6 +17,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Switch;
@@ -30,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button botonAzul;
     private Button botonVerde;
     private Spinner selectorOpciones;
+    private ImageButton imgPopMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +117,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             }
         });
+
+        imgPopMenu = (ImageButton) findViewById( R.id.imgPopMenu );
+        imgPopMenu.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                popupmenuaction();
+            }
+        } );
+
     }
 
     public void cambiarColor(View v){
@@ -133,5 +148,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }else if(view.getId() == botonVerde.getId()){
             textoPantalla.setTextColor( Color.GREEN);
         }
+    }
+
+    private void popupmenuaction(){
+        PopupMenu pop = new PopupMenu( this, imgPopMenu);
+        pop.getMenuInflater().inflate( R.menu.menupopup ,pop.getMenu());
+        pop.setOnMenuItemClickListener( new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                Toast.makeText( getBaseContext(), menuItem.getTitle().toString(),Toast.LENGTH_LONG ).show();
+                return true;
+            }
+        } );
+        pop.show();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuBarra = this.getMenuInflater();
+        menuBarra.inflate( R.menu.menupopup,menu );
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        Toast.makeText( this, item.getTitle().toString(),Toast.LENGTH_LONG ).show();
+        return true;
     }
 }
